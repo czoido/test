@@ -57,15 +57,10 @@ try{
                         def base_dir = (slave == "Windows") ? win_tmp_base : rest_tmp_base
                         def workdir = "${base_dir}/${bn}/${pyver}"
 
-                        if(slave == "Linux"){
-                            sh(script: "docker pull conanio/conantestagent")
-                            docker.image('conanio/conantestagent').inside("-e CONAN_USER_HOME=${WORKSPACE}") {
-                                sh(script: "python ${runner} ${modules} ${pyver} ${branch} ${workdir} --num_cores=${numcores}")
-                            }
-                        }
-                        else if(slave == "Windows"){
+                        if(slave == "Windows"){
                             try{
                               withEnv(["CONAN_TEST_FOLDER=${workdir}"]){
+                                bat(script: "python --version")
                                 bat(script: "python ${runner} ${modules} ${pyver} ${branch} \"${workdir}\" --num_cores=${numcores}")
                               }
                             }
@@ -73,16 +68,22 @@ try{
                                 bat(script: "rd /s /q \"${workdir}\"")
                             }
                         }
-                        else if(slave == "Macos"){
-                            try{
-                              withEnv(['PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin']) {
-                                  sh(script: "python ${runner} ${modules} ${pyver} ${branch} ${workdir} --num_cores=${numcores}")
-                              }
-                            }
-                            finally{
-                              sh(script: "rm -rf ${workdir}")
-                            }
-                        }
+                        // else if(slave == "Linux"){
+                        //     sh(script: "docker pull conanio/conantestagent")
+                        //     docker.image('conanio/conantestagent').inside("-e CONAN_USER_HOME=${WORKSPACE}") {
+                        //         sh(script: "python ${runner} ${modules} ${pyver} ${branch} ${workdir} --num_cores=${numcores}")
+                        //     }
+                        // } 
+                        // else if(slave == "Macos"){
+                        //     try{
+                        //       withEnv(['PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin']) {
+                        //           sh(script: "python ${runner} ${modules} ${pyver} ${branch} ${workdir} --num_cores=${numcores}")
+                        //       }
+                        //     }
+                        //     finally{
+                        //       sh(script: "rm -rf ${workdir}")
+                        //     }
+                        // }
                     }
                 }
             }
