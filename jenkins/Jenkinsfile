@@ -50,6 +50,7 @@ try{
             def pyver = y
             builders["${slave} - ${pyver}"] = {
                 node(slave) {
+                    sh "sudo gpasswd -a conan docker && newgrp docker"
                     stage("${slave} - ${pyver}"){
                         step ([$class: 'WsCleanup'])
                         checkout scm
