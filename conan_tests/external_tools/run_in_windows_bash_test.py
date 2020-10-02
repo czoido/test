@@ -50,6 +50,10 @@ class LibConan(ConanFile):
             with tools.environment_append({"CONAN_BASH_PATH": full_path}):
                 client.run("create . lib/1.0@lasote/stable")
                 self.assertIn(full_path, client.out)
+                print("============")
+                print("============")
                 print(client.out)
+                print("============")
+                print("============")
                 self.assertIn("hello Conan!", client.out)
                 self.assertIn("configuring...", client.out)
