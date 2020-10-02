@@ -15,7 +15,7 @@ curl -uadmin:password --output /dev/null -XPOST "$ARTIFACTORY_DEFAULT_URL/api/sy
 echo "Let's clone Conan"
 git clone $CONAN_GIT_REPO conan_sources
 cd conan_sources
-git checkout $CONAN_GIT_TAG
+git checkout rever_color_popen
 echo "Let's install Conan as editable"
 pip3 install -e . && pip3 install -r conans/requirements_dev.txt
 rm __init__.py
