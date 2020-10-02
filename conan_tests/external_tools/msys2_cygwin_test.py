@@ -72,7 +72,7 @@ class ConanBash(ConanFile):
             vs_path = os.pathsep.join(vs_path)
         print("--------vs_path---------")
         print(vs_path)
-        tools.run_in_windows_bash(self, "link", env={"PATH": vs_path})
+        tools.run_in_windows_bash(self, "LINK", env={"PATH": vs_path})
 
 '''
                 client = TestClient()
