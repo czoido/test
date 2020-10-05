@@ -39,7 +39,7 @@ def run_tests(module_path, conan_branch, pyver, tmp_folder, num_cores=3):
               "{source_cmd} \"{venv_exe}\" && " \
               "{pip_installs} && " \
               "cd {tmp_folder} && git clone --depth 1 " \
-              "https://github.com/czoido/conan.git -b fix/runner_stream_output conan_p && " \
+              "https://github.com/czoido/conan.git -b check_bash_output conan_p && " \
               "cd conan_p && pip install . && cd {cwd} && " \
               "conan --version && conan --help && " \
               "nosetests {module_path} --verbosity=2 " \
