@@ -1,5 +1,5 @@
 echo "LAUNCHING: ${env.JOB_NAME}"
-def modules = ["conan_tests"]
+def modules = ["conan_tests.external_tools.msys2_cygwin_test:RunInMsys2BashTest.run_in_windows_bash_inject_env_test"]
 def slaves = ['Linux', 'Windows']
 def pyvers = ['py37', 'py27']
 def numcores = "1"
