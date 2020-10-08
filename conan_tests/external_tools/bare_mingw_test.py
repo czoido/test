@@ -52,6 +52,7 @@ class MinGWDiamondTest(unittest.TestCase):
                 self.client.run("install %s -s compiler=gcc -s compiler.libcxx=libstdc++ " 
                                 "-s compiler.version=4.9 --build=missing" % path_dot())
                 self.client.run("build .")
+                
                 command = os.sep.join([".", "bin", "say_hello"])
                 self.client.run_command(command)
                 self.assertEqual(['Hola Hello4', 'Hola Hello3', 'Hola Hello1', 'Hola Hello0',
