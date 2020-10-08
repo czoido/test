@@ -1,4 +1,5 @@
 import os
+import sys
 
 from conf import winpylocation, linuxpylocation, macpylocation, environment_append, get_environ
 import platform
@@ -65,6 +66,7 @@ def run_tests(module_path, conan_branch, pyver, tmp_folder, num_cores=3):
     os.mkdir(env['PYTHON_EGG_CACHE'])
     with environment_append(env):
         print(env)
+        print(sys.path)
         print(command)
         run(command)
 
