@@ -71,9 +71,9 @@ try{
                                 bat(script: "python ${runner} ${modules} ${pyver} ${branch} \"${workdir}\" --num_cores=${numcores}")
                               }
                             }
-                            finally{
-                                bat(script: "rd /s /q \"${workdir}\"")
-                            }
+                            // finally{
+                            //     bat(script: "rd /s /q \"${workdir}\"")
+                            // }
                         }
                         else if(slave == "Macos"){
                             try{
