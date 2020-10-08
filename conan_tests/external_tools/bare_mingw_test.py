@@ -7,6 +7,7 @@ from conans import tools
 from conans.model.version import Version
 from conans.test.utils.tools import TestClient, TestServer
 from conans.test.utils.cpp_test_files import cpp_hello_conan_files
+from conans.test.integration.basic_build_test import build
 from conans import __version__ as client_version
 
 
@@ -73,5 +74,4 @@ class BuildMingwTest(unittest.TestCase):
                           "-s compiler.version=4.9" % path_dot()
                 for cmd, lang, static, pure_c in [(install, 0, True, True),
                                                   (install + " -o language=1 -o static=False", 1, False, False)]:
-                    from conans.test.integration.basic_build_test import build
                     build(self, cmd, static, pure_c, use_cmake=False, lang=lang)
