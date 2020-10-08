@@ -43,7 +43,7 @@ def conan_create_command(user_channel):
 
 
 def path_dot():
-    return "." if Version(client_version) > Version("0.31") else ""
+    return "."
 
 
 def run(command, ignore_error=False, capture=False):
