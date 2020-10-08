@@ -70,7 +70,11 @@ class BuildMingwTest(unittest.TestCase):
         print(modules)
         print(os.environ["PYTHONPATH"])
         print(os.environ)
-        print(sys.path)        
+        print(sys.path)
+        os.system('dir {}'.format(os.environ["PYTHONPATH"]))
+        os.system('dir {}'.format(os.path.join(os.environ["PYTHONPATH"],"conans")))
+        os.system('dir {}'.format(os.path.join(os.environ["PYTHONPATH"],"conans","test")))
+        os.system('dir {}'.format(os.path.join(os.environ["PYTHONPATH"],"conans","test","integration")))
         with tools.remove_from_path("bash.exe"):
             with mingw_in_path():
                 not_env = os.system("c++ --version > nul")
