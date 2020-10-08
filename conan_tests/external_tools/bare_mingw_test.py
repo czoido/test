@@ -52,15 +52,11 @@ class MinGWDiamondTest(unittest.TestCase):
                 self.client.run("install %s -s compiler=gcc -s compiler.libcxx=libstdc++ " 
                                 "-s compiler.version=4.9 --build=missing" % path_dot())
                 self.client.run("build .")
-                print(self.client.current_folder)
-
-        print(os.popen('dir').read())
-        command = os.sep.join([".", "bin", "say_hello"])
-        print(self.client.current_folder)
-        self.client.run_command(command, cwd=self.client.current_folder)
-        self.assertEqual(['Hola Hello4', 'Hola Hello3', 'Hola Hello1', 'Hola Hello0',
-                          'Hola Hello2', 'Hola Hello0'],
-                         str(self.client.out).splitlines()[-6:])
+                command = os.sep.join([".", "bin", "say_hello"])
+                self.client.run_command(command)
+                self.assertEqual(['Hola Hello4', 'Hola Hello3', 'Hola Hello1', 'Hola Hello0',
+                                'Hola Hello2', 'Hola Hello0'],
+                                str(self.client.out).splitlines()[-6:])
 
 
 @unittest.skipIf(Version(client_version) < Version("0.31"), 'Only >= 1.0 version')        
