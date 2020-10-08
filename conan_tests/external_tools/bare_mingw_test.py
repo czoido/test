@@ -57,7 +57,7 @@ class MinGWDiamondTest(unittest.TestCase):
         print(os.popen('dir').read())
         command = os.sep.join([".", "bin", "say_hello"])
         print(self.client.current_folder)
-        self.client.run_command(command)
+        self.client.run_command(command, cwd=self.client.current_folder)
         self.assertEqual(['Hola Hello4', 'Hola Hello3', 'Hola Hello1', 'Hola Hello0',
                           'Hola Hello2', 'Hola Hello0'],
                          str(self.client.out).splitlines()[-6:])
