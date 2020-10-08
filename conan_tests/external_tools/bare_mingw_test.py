@@ -60,6 +60,16 @@ class MinGWDiamondTest(unittest.TestCase):
                           'Hola Hello2', 'Hola Hello0'],
                          str(self.client.out).splitlines()[-6:])
 
+def run(command):
+    print("--CALLING: %s" % command)
+    # return os.system(command)
+    import subprocess
+
+    # ret = subprocess.call("bash -c '%s'" % command, shell=True)
+    shell = '/bin/bash' if platform.system() != "Windows" else None
+    ret = subprocess.call(command, shell=True, executable=shell)
+    if ret != 0:
+        raise Exception("Error running: '%s'" % command)
 
 @unittest.skipIf(Version(client_version) < Version("0.31"), 'Only >= 1.0 version')        
 class BuildMingwTest(unittest.TestCase):
@@ -71,10 +81,10 @@ class BuildMingwTest(unittest.TestCase):
         print(os.environ["PYTHONPATH"])
         print(os.environ)
         print(sys.path)
-        os.system('dir {}'.format(os.environ["PYTHONPATH"]))
-        os.system('dir {}'.format(os.path.join(os.environ["PYTHONPATH"],"conans")))
-        os.system('dir {}'.format(os.path.join(os.environ["PYTHONPATH"],"conans","test")))
-        os.system('dir {}'.format(os.path.join(os.environ["PYTHONPATH"],"conans","test","integration")))
+        run('dir {}'.format(os.environ["PYTHONPATH"]))
+        run('dir {}'.format(os.path.join(os.environ["PYTHONPATH"],"conans")))
+        run('dir {}'.format(os.path.join(os.environ["PYTHONPATH"],"conans","test")))
+        run('dir {}'.format(os.path.join(os.environ["PYTHONPATH"],"conans","test","integration")))
         with tools.remove_from_path("bash.exe"):
             with mingw_in_path():
                 not_env = os.system("c++ --version > nul")
