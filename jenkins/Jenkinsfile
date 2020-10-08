@@ -1,7 +1,9 @@
 echo "LAUNCHING: ${env.JOB_NAME}"
-def modules = ["conan_tests"]
-def slaves = ['Linux', 'Windows']
-def pyvers = ['py37', 'py27']
+def modules = ["conan_tests.external_tools.bare_mingw_test"]
+// def slaves = ['Linux', 'Windows']
+// def pyvers = ['py37', 'py27']
+def slaves = ['Windows']
+def pyvers = ['py37']
 def numcores = "1"
 def branch = env.JOB_NAME.split("_")[1].replaceAll("-", "/")
 def build_short = env.JOB_NAME.split("_")[1].replaceAll("\\.", "").replaceAll("-", "").replace("release", "rl")
@@ -16,30 +18,30 @@ def rest_tmp_base = "/tmp/"
 def runner = "jenkins/runner.py"
 
 
-// First test Artifactory
-try{
-    node("LinuxSlave") {
-        stage("Testing revisions with Artifactory"){
-            checkout scm
-            for (arti_version in ["7.3.2", "7.2.1", "6.18.1", "6.9.0"]){
-                echo "Testing Artifactory ${arti_version} with Conan '${branch}'"
-                withEnv(["CONAN_GIT_TAG=${branch}".toString(), 'CONAN_GIT_REPO=https://github.com/conan-io/conan.git', "ARTIFACTORY_VERSION=${arti_version}"]) {
-                    withCredentials([string(credentialsId: 'ART_LICENSE', variable: 'ART_LICENSE')]) {
-                         lock(label: 'ArtifactoryRunning', quantity: 1) {
-                             sh(script: "cd artifactory_tests && ./run_tests.sh")
-                         }
-                    }
-                }
-            }
-        }
-    }
-}
-catch(e){
-    def subject = "FAILED ARTIFACTORY: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
-    def summary = "${subject} (${env.BUILD_URL}), Conan Branch: ${branch}"
-    slackSend (color: '#FF0000', message: summary)
-    throw e
-}
+// // First test Artifactory
+// try{
+//     node("LinuxSlave") {
+//         stage("Testing revisions with Artifactory"){
+//             checkout scm
+//             for (arti_version in ["7.3.2", "7.2.1", "6.18.1", "6.9.0"]){
+//                 echo "Testing Artifactory ${arti_version} with Conan '${branch}'"
+//                 withEnv(["CONAN_GIT_TAG=${branch}".toString(), 'CONAN_GIT_REPO=https://github.com/conan-io/conan.git', "ARTIFACTORY_VERSION=${arti_version}"]) {
+//                     withCredentials([string(credentialsId: 'ART_LICENSE', variable: 'ART_LICENSE')]) {
+//                          lock(label: 'ArtifactoryRunning', quantity: 1) {
+//                              sh(script: "cd artifactory_tests && ./run_tests.sh")
+//                          }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
+// catch(e){
+//     def subject = "FAILED ARTIFACTORY: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+//     def summary = "${subject} (${env.BUILD_URL}), Conan Branch: ${branch}"
+//     slackSend (color: '#FF0000', message: summary)
+//     throw e
+// }
 
 
 def builders = [:]
