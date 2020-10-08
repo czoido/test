@@ -64,6 +64,7 @@ def run_tests(module_path, conan_branch, pyver, tmp_folder, num_cores=3):
 
     os.mkdir(env['PYTHON_EGG_CACHE'])
     with environment_append(env):
+        print(env)
         print(command)
         run(command)
 
