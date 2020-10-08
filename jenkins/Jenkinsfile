@@ -65,12 +65,12 @@ try{
                             }
                         }
                         else if(slave == "Windows"){
-                            try{
+                            //try{
                               withEnv(["CONAN_TEST_FOLDER=${workdir}"]){
                                 bat(script: "set")
                                 bat(script: "python ${runner} ${modules} ${pyver} ${branch} \"${workdir}\" --num_cores=${numcores}")
                               }
-                            }
+                            //}
                             // finally{
                             //     bat(script: "rd /s /q \"${workdir}\"")
                             // }
