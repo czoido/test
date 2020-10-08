@@ -1,5 +1,5 @@
 echo "LAUNCHING: ${env.JOB_NAME}"
-def modules = ["conan_tests.external_tools.bare_mingw_test.BuildMingwTest"]
+def modules = ["conan_tests.external_tools.bare_mingw_test"]
 // def slaves = ['Linux', 'Windows']
 def slaves = ['Windows']
 def pyvers = ['py37', 'py27']
