@@ -66,6 +66,9 @@ def run_tests(module_path, conan_branch, pyver, tmp_folder, num_cores=3):
 
     os.mkdir(env["PYTHON_EGG_CACHE"])
     with environment_append(env):
+        import pkgutil
+        modules = [name for _, name, _ in pkgutil.iter_modules(['conans.test.integration'])]
+        print(modules)
         print(os.environ["PYTHONPATH"])
         print(env)
         print(sys.path)
