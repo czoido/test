@@ -45,7 +45,7 @@ def run_tests(module_path, conan_branch, pyver, tmp_folder, num_cores=3):
               "conan --version && conan --help && " \
               "nosetests {module_path} --verbosity=2 " \
               "{multiprocess} ".format(
-                                    **{"module_path": module_path,
+                                    **{"module_path": "conan_tests.external_tools.vswhere_test.vswhereTest",
                                        "pyenv": pyenv,
                                        "branch": conan_branch,
                                        "venv_dest": venv_dest,
